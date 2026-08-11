@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Text to Speech</title>
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #d9a9f0, #a6c8f5, #b9ecf5);
+        }
+
+        .form-container {
+            width: 100%;
+            max-width: 500px;
+            padding: 40px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            box-sizing: border-box;
+        }
+
+        h1 {
+            text-align: center;
+            color: #3b3b5c;
+            margin-bottom: 30px;
+        }
+
+        label {
+            display: block;
+            color: #3b3b5c;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        textarea, select {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 14px 16px;
+            margin-bottom: 20px;
+            border: none;
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.85);
+            font-size: 14px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        button {
+            display: block;
+            margin: 10px auto 0;
+            padding: 14px 36px;
+            border: none;
+            border-radius: 14px;
+            background: #2f5fdc;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #2549b0;
+        }
+
+        .voice-row {
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .voice-picker {
+            position: relative;
+            flex: 1;
+        }
+
+        .voice-picker input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 14px 16px;
+            border: none;
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.85);
+            font-size: 14px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+        }
+
+        .voice-dropdown {
+            display: none;
+            position: absolute;
+            top: calc(100% + 6px);
+            left: 0;
+            right: 0;
+            max-height: 260px;
+            overflow-y: auto;
+            background: white;
+            border-radius: 14px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+            z-index: 10;
+        }
+
+        .voice-dropdown.show {
+            display: block;
+        }
+
+        .voice-option-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 16px;
+            gap: 10px;
+        }
+
+        .voice-option-row.hidden {
+            display: none;
+        }
+
+        .voice-option-row .voice-language {
+            color: #3b3b5c;
+            font-size: 14px;
+        }
+
+        .voice-option-row .voice-options {
+            display: flex;
+            gap: 6px;
+            flex-shrink: 0;
+        }
+
+        .voice-option {
+            border: none;
+            border-radius: 10px;
+            background: rgba(59, 59, 92, 0.08);
+            color: #3b3b5c;
+            font-size: 12px;
+            padding: 6px 10px;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .voice-option:hover, .voice-option.selected {
+            background: #2f5fdc;
+            color: white;
+        }
+
+        .preview-button {
+            display: block;
+            margin: 0;
+            padding: 14px 20px;
+            border: none;
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.85);
+            color: #3b3b5c;
+            font-size: 14px;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .preview-button:hover {
+            background: rgba(255, 255, 255, 1);
+        }
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            justify-content: flex-end;
+            align-items: center;
+            padding-right: 40px;
+            box-sizing: border-box;
+            pointer-events: none;
+        }
+
+        .modal-overlay.show {
+            display: flex;
+        }
+
+        .modal-box {
+            width: 100%;
+            max-width: 340px;
+            padding: 30px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+            text-align: center;
+            pointer-events: auto;
+        }
+
+        .modal-box h2 {
+            color: #3b3b5c;
+            margin-top: 0;
+        }
+
+        .modal-box .translated-text {
+            color: #3b3b5c;
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+
+        .modal-box audio {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .modal-actions a, .modal-actions button {
+            display: inline-block;
+            margin: 6px;
+            padding: 12px 28px;
+            border: none;
+            border-radius: 14px;
+            background: #2f5fdc;
+            color: white;
+            font-size: 15px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .modal-actions a:hover, .modal-actions button:hover {
+            background: #2549b0;
+        }
+
+        .modal-actions .secondary {
+            background: rgba(59, 59, 92, 0.1);
+            color: #3b3b5c;
+        }
+
+        .modal-actions .secondary:hover {
+            background: rgba(59, 59, 92, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>Text to Speech</h1>
+
+        <form method="POST" action="/convert">
+            <label for="text">Text:</label>
+            <textarea name="text" id="text" rows="6" placeholder="Enter text here"></textarea>
+
+            <label for="voice-search">Language & Voice:</label>
+            <div class="voice-row">
+                <div class="voice-picker">
+                    <input type="text" id="voice-search" placeholder="Search a language..." autocomplete="off">
+                    <input type="hidden" name="voice" id="voice-value">
+                    <div class="voice-dropdown" id="voice-dropdown">
+                        {% for locale, info in voice_map.items() %}
+                        <div class="voice-option-row" data-language="{{ info.language_name|lower }}">
+                            <span class="voice-language">{{ info.language_name }}</span>
+                            <span class="voice-options">
+                                {% if info.Female %}<button type="button" class="voice-option" data-value="{{ info.Female.short_name }}" data-label="{{ info.language_name }} - {{ info.Female.name }} (Female)">{{ info.Female.name }} (F)</button>{% endif %}
+                                {% if info.Male %}<button type="button" class="voice-option" data-value="{{ info.Male.short_name }}" data-label="{{ info.language_name }} - {{ info.Male.name }} (Male)">{{ info.Male.name }} (M)</button>{% endif %}
+                            </span>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <button type="button" class="preview-button" id="preview-button">Preview</button>
+            </div>
+
+            <button type="submit" id="convert-button">Convert</button>
+        </form>
+    </div>
+
+    <audio id="preview-audio"></audio>
+
+    <div class="modal-overlay" id="result-modal">
+        <div class="modal-box">
+            <h2>Your audio is ready</h2>
+            <p class="translated-text" id="modal-translated-text"></p>
+            <audio controls id="modal-audio"></audio>
+            <div class="modal-actions">
+                <a href="#" id="modal-download" download>Download</a>
+                <button type="button" id="modal-close">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const voiceSearch = document.getElementById("voice-search");
+        const voiceValue = document.getElementById("voice-value");
+        const voiceDropdown = document.getElementById("voice-dropdown");
+        const voiceRows = document.querySelectorAll(".voice-option-row");
+        const voiceOptions = document.querySelectorAll(".voice-option");
+        const previewAudio = document.getElementById("preview-audio");
+        const previewButton = document.getElementById("preview-button");
+
+        voiceSearch.addEventListener("focus", () => {
+            voiceDropdown.classList.add("show");
+        });
+
+        voiceSearch.addEventListener("input", () => {
+            const query = voiceSearch.value.toLowerCase();
+            voiceRows.forEach((row) => {
+                const matches = row.dataset.language.includes(query);
+                row.classList.toggle("hidden", !matches);
+            });
+        });
+
+        document.addEventListener("click", (event) => {
+            if (!event.target.closest(".voice-picker")) {
+                voiceDropdown.classList.remove("show");
+            }
+        });
+
+        voiceOptions.forEach((button) => {
+            button.addEventListener("click", () => {
+                voiceOptions.forEach((b) => b.classList.remove("selected"));
+                button.classList.add("selected");
+                voiceValue.value = button.dataset.value;
+                voiceSearch.value = button.dataset.label;
+                voiceDropdown.classList.remove("show");
+            });
+        });
+
+        previewButton.addEventListener("click", () => {
+            if (!voiceValue.value) {
+                alert("Please select a voice first");
+                return;
+            }
+
+            previewButton.disabled = true;
+            previewButton.textContent = "Loading...";
+
+            previewAudio.src = `/preview?voice=${voiceValue.value}`;
+            previewAudio.play();
+        });
+
+        previewAudio.addEventListener("playing", () => {
+            previewButton.disabled = false;
+            previewButton.textContent = "Preview";
+        });
+
+        const form = document.querySelector("form");
+        const convertButton = document.getElementById("convert-button");
+        const modal = document.getElementById("result-modal");
+        const modalAudio = document.getElementById("modal-audio");
+        const modalDownload = document.getElementById("modal-download");
+        const modalTranslatedText = document.getElementById("modal-translated-text");
+        const modalClose = document.getElementById("modal-close");
+
+        form.addEventListener("submit", async (event) => {
+            event.preventDefault();
+
+            if (!voiceValue.value) {
+                alert("Please select a voice first");
+                return;
+            }
+
+            convertButton.disabled = true;
+            convertButton.textContent = "Converting...";
+
+            const response = await fetch("/convert", {
+                method: "POST",
+                body: new FormData(form),
+            });
+            const data = await response.json();
+
+            modalAudio.src = data.audio_url;
+            modalDownload.href = data.audio_url;
+            modalTranslatedText.textContent = `"${data.translated_text}"`;
+            modal.classList.add("show");
+            modalAudio.play();
+
+            convertButton.disabled = false;
+            convertButton.textContent = "Convert";
+        });
+
+        modalClose.addEventListener("click", () => {
+            modal.classList.remove("show");
+            modalAudio.pause();
+        });
+    </script>
+</body>
+</html>
