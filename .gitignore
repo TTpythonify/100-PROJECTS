@@ -3,3 +3,4 @@ __pycache__/
 *.pyc
 .claude/
 Day2/static/audio/
+Day4/tasks.json
