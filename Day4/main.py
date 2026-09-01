@@ -465,7 +465,6 @@ pending_header_frame.pack(fill="x", padx=10, pady=(10, 0))
 pending_list_frame = ctk.CTkScrollableFrame(tasks_tabview.tab("Pending"), fg_color="transparent")
 pending_list_frame.pack(padx=10, pady=(5, 10), fill="both", expand=True)
 
-# fixed header (count) that stays visible while the completed list scrolls
 completed_header_frame = ctk.CTkFrame(tasks_tabview.tab("Completed"), fg_color="transparent")
 completed_header_frame.pack(fill="x", padx=10, pady=(10, 0))
 

@@ -27,3 +27,4 @@ Each project lives in its own folder with its own `README.md` explaining what it
 | 2 | [Day2](./Day2) | Text to speech Flask app — search a language, preview a voice, translate and convert your text, then play or download the audio |
 | 3 | [Day3](./Day3) | Calculator built with `customtkinter` — add, subtract, multiply, divide, with backspace and a display that shows the full expression |
 | 4 | [Day4](./Day4) | To do list built with `customtkinter` — add/edit/delete tasks, mark complete, pick due dates from a calendar, auto priority coloring, and a progress bar |
+| 5 | [Day5](./Day5) | QR code generator built with `customtkinter` — URL/text or WiFi QR codes, custom colors, an embedded logo, and save as PNG |
