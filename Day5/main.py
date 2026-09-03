@@ -121,7 +121,7 @@ mode_selector.set("URL/Text")
 mode_selector.pack(pady=(0, 8))
 
 # fixed-height area so the layout doesn't jump when switching modes
-input_area = ctk.CTkFrame(card, width=300, height=105, fg_color="transparent")
+input_area = ctk.CTkFrame(card, width=380, height=105, fg_color="transparent")
 input_area.pack()
 input_area.pack_propagate(False)
 
@@ -129,7 +129,7 @@ input_area.pack_propagate(False)
 url_frame = ctk.CTkFrame(input_area, fg_color="transparent")
 text_entry = ctk.CTkEntry(
     url_frame,
-    width=280,
+    width=360,
     height=36,
     corner_radius=10,
     fg_color="#f7f7f7",
@@ -143,7 +143,7 @@ text_entry.pack(pady=5)
 wifi_frame = ctk.CTkFrame(input_area, fg_color="transparent")
 wifi_ssid_entry = ctk.CTkEntry(
     wifi_frame,
-    width=280,
+    width=360,
     height=32,
     corner_radius=10,
     fg_color="#f7f7f7",
@@ -157,7 +157,7 @@ password_row.pack(pady=(0, 5))
 
 wifi_password_entry = ctk.CTkEntry(
     password_row,
-    width=235,
+    width=315,
     height=32,
     corner_radius=10,
     fg_color="#f7f7f7",
@@ -181,7 +181,7 @@ password_toggle_button = ctk.CTkButton(
 )
 password_toggle_button.pack(side="left")
 wifi_encryption_menu = ctk.CTkOptionMenu(
-    wifi_frame, width=280, height=32, corner_radius=10, values=["WPA/WPA2", "WEP", "None"]
+    wifi_frame, width=360, height=32, corner_radius=10, values=["WPA/WPA2", "WEP", "None"]
 )
 wifi_encryption_menu.pack()
 
@@ -193,23 +193,23 @@ color_row = ctk.CTkFrame(card, fg_color="transparent")
 color_row.pack(pady=(2, 6))
 
 qr_color_label = ctk.CTkLabel(color_row, text="QR COLOR", font=("Arial", 11, "bold"), text_color="#999999")
-qr_color_label.grid(row=0, column=0, padx=20)
+qr_color_label.grid(row=0, column=0, padx=45)
 
 bg_color_label = ctk.CTkLabel(color_row, text="BACKGROUND", font=("Arial", 11, "bold"), text_color="#999999")
-bg_color_label.grid(row=0, column=1, padx=20)
+bg_color_label.grid(row=0, column=1, padx=45)
 
-qr_color_swatch = ctk.CTkButton(color_row, text="", width=50, height=28, corner_radius=8, fg_color=colors["qr"], border_width=1, border_color="#d0d0d0")
+qr_color_swatch = ctk.CTkButton(color_row, text="", width=60, height=28, corner_radius=8, fg_color=colors["qr"], border_width=1, border_color="#d0d0d0")
 qr_color_swatch.configure(command=lambda: pick_color("qr", qr_color_swatch))
-qr_color_swatch.grid(row=1, column=0, padx=20, pady=3)
+qr_color_swatch.grid(row=1, column=0, padx=45, pady=3)
 
-bg_color_swatch = ctk.CTkButton(color_row, text="", width=50, height=28, corner_radius=8, fg_color=colors["background"], border_width=1, border_color="#d0d0d0")
+bg_color_swatch = ctk.CTkButton(color_row, text="", width=60, height=28, corner_radius=8, fg_color=colors["background"], border_width=1, border_color="#d0d0d0")
 bg_color_swatch.configure(command=lambda: pick_color("background", bg_color_swatch))
-bg_color_swatch.grid(row=1, column=1, padx=20, pady=3)
+bg_color_swatch.grid(row=1, column=1, padx=45, pady=3)
 
 logo_button = ctk.CTkButton(
     card,
     text="Choose Logo (optional)",
-    width=200,
+    width=280,
     height=30,
     corner_radius=15,
     fg_color="#e0e0e0",
@@ -222,7 +222,7 @@ logo_button.pack(pady=(0, 8))
 generate_button = ctk.CTkButton(
     card,
     text="Generate",
-    width=200,
+    width=280,
     height=36,
     corner_radius=18,
     font=("Arial", 14, "bold"),
@@ -242,7 +242,7 @@ qr_label.pack(expand=True)
 save_button = ctk.CTkButton(
     card,
     text="Save as PNG",
-    width=200,
+    width=280,
     height=34,
     corner_radius=17,
     fg_color="#e0e0e0",
