@@ -168,81 +168,81 @@ def open_view_passwords_popup():
 
 
 card = ctk.CTkFrame(app, corner_radius=16, fg_color="white", border_width=1, border_color="#e5e5e5")
-card.pack(padx=20, pady=20)
+card.pack(padx=15, pady=15)
 
-title_label = ctk.CTkLabel(card, text="Password Generator", font=("Arial", 20, "bold"), text_color="black")
-title_label.pack(pady=(20, 15))
+title_label = ctk.CTkLabel(card, text="Password Generator", font=("Arial", 17, "bold"), text_color="black")
+title_label.pack(pady=(15, 8))
 
-password_display_frame = ctk.CTkFrame(card, width=320, height=50, corner_radius=10, fg_color="#f7f7f7", border_width=1, border_color="#e0e0e0")
-password_display_frame.pack(padx=20)
+password_display_frame = ctk.CTkFrame(card, width=300, height=40, corner_radius=10, fg_color="#f7f7f7", border_width=1, border_color="#e0e0e0")
+password_display_frame.pack(padx=15)
 password_display_frame.pack_propagate(False)
 
-password_label = ctk.CTkLabel(password_display_frame, text="Your password will appear here", text_color="#999999", font=("Arial", 13))
+password_label = ctk.CTkLabel(password_display_frame, text="Your password will appear here", text_color="#999999", font=("Arial", 12))
 password_label.pack(expand=True)
 
-strength_label = ctk.CTkLabel(card, text="", font=("Arial", 11, "bold"))
-strength_label.pack(pady=(6, 0))
+strength_label = ctk.CTkLabel(card, text="", font=("Arial", 10, "bold"))
+strength_label.pack(pady=(3, 0))
 
 length_row = ctk.CTkFrame(card, fg_color="transparent")
-length_row.pack(fill="x", padx=20, pady=(15, 5))
+length_row.pack(fill="x", padx=15, pady=(8, 2))
 
-length_title_label = ctk.CTkLabel(length_row, text="LENGTH", font=("Arial", 11, "bold"), text_color="#999999")
+length_title_label = ctk.CTkLabel(length_row, text="LENGTH", font=("Arial", 10, "bold"), text_color="#999999")
 length_title_label.pack(side="left")
 
-length_value_label = ctk.CTkLabel(length_row, text="16", font=("Arial", 11, "bold"), text_color="#2f5fdc")
+length_value_label = ctk.CTkLabel(length_row, text="16", font=("Arial", 10, "bold"), text_color="#2f5fdc")
 length_value_label.pack(side="right")
 
 length_slider = ctk.CTkSlider(card, from_=8, to=32, number_of_steps=24, command=update_length_label)
 length_slider.set(16)
-length_slider.pack(padx=20, pady=(0, 15), fill="x")
+length_slider.pack(padx=15, pady=(0, 8), fill="x")
 
-options_label = ctk.CTkLabel(card, text="CHARACTER TYPES", font=("Arial", 11, "bold"), text_color="#999999")
-options_label.pack(anchor="w", padx=20)
+options_label = ctk.CTkLabel(card, text="CHARACTER TYPES", font=("Arial", 10, "bold"), text_color="#999999")
+options_label.pack(anchor="w", padx=15)
 
 options_frame = ctk.CTkFrame(card, fg_color="transparent")
-options_frame.pack(fill="x", padx=20, pady=(5, 15))
+options_frame.pack(fill="x", padx=15, pady=(3, 8))
 
 uppercase_checkbox = ctk.CTkCheckBox(options_frame, text="Uppercase (A-Z)", text_color="black")
 uppercase_checkbox.select()
-uppercase_checkbox.pack(anchor="w", pady=3)
+uppercase_checkbox.pack(anchor="w", pady=2)
 
 lowercase_checkbox = ctk.CTkCheckBox(options_frame, text="Lowercase (a-z)", text_color="black")
 lowercase_checkbox.select()
-lowercase_checkbox.pack(anchor="w", pady=3)
+lowercase_checkbox.pack(anchor="w", pady=2)
 
 numbers_checkbox = ctk.CTkCheckBox(options_frame, text="Numbers (0-9)", text_color="black")
 numbers_checkbox.select()
-numbers_checkbox.pack(anchor="w", pady=3)
+numbers_checkbox.pack(anchor="w", pady=2)
 
 symbols_checkbox = ctk.CTkCheckBox(options_frame, text="Symbols (!@#$...)", text_color="black")
 symbols_checkbox.select()
-symbols_checkbox.pack(anchor="w", pady=3)
+symbols_checkbox.pack(anchor="w", pady=2)
 
 exclude_ambiguous_checkbox = ctk.CTkCheckBox(options_frame, text="Exclude ambiguous characters (0/O, 1/l/I)", text_color="black")
-exclude_ambiguous_checkbox.pack(anchor="w", pady=3)
+exclude_ambiguous_checkbox.pack(anchor="w", pady=2)
 
 # generate button
 generate_button = ctk.CTkButton(
     card,
     text="Generate",
-    height=38,
-    corner_radius=18,
-    font=("Arial", 14, "bold"),
+    height=32,
+    corner_radius=16,
+    font=("Arial", 13, "bold"),
     fg_color="#2f5fdc",
     hover_color="#2549b0",
     command=generate_password,
 )
-generate_button.pack(padx=20, pady=(0, 15), fill="x")
+generate_button.pack(padx=15, pady=(0, 8), fill="x")
 
-save_label = ctk.CTkLabel(card, text="SAVE AS", font=("Arial", 11, "bold"), text_color="#999999")
-save_label.pack(anchor="w", padx=20)
+save_label = ctk.CTkLabel(card, text="SAVE AS", font=("Arial", 10, "bold"), text_color="#999999")
+save_label.pack(anchor="w", padx=15)
 
 save_row = ctk.CTkFrame(card, fg_color="transparent")
-save_row.pack(fill="x", padx=20, pady=(5, 5))
+save_row.pack(fill="x", padx=15, pady=(3, 3))
 
 name_entry = ctk.CTkEntry(
     save_row,
-    height=36,
+    height=32,
     corner_radius=10,
     fg_color="#f7f7f7",
     border_width=1,
@@ -254,8 +254,8 @@ name_entry.pack(side="left", fill="x", expand=True, padx=(0, 8))
 save_button = ctk.CTkButton(
     save_row,
     text="Save",
-    width=70,
-    height=36,
+    width=60,
+    height=32,
     corner_radius=10,
     fg_color="#2f5fdc",
     hover_color="#2549b0",
@@ -263,20 +263,20 @@ save_button = ctk.CTkButton(
 )
 save_button.pack(side="left")
 
-save_status_label = ctk.CTkLabel(card, text="", font=("Arial", 11, "bold"))
-save_status_label.pack(pady=(0, 10))
+save_status_label = ctk.CTkLabel(card, text="", font=("Arial", 10, "bold"))
+save_status_label.pack(pady=(0, 6))
 
 view_button = ctk.CTkButton(
     card,
     text="View Saved Passwords",
-    height=34,
-    corner_radius=17,
+    height=30,
+    corner_radius=15,
     fg_color="#e0e0e0",
     text_color="black",
     hover_color="#cfcfcf",
     command=open_view_passwords_popup,
 )
-view_button.pack(padx=20, pady=(0, 20), fill="x")
+view_button.pack(padx=15, pady=(0, 15), fill="x")
 
 
 app.resizable(False, False)
