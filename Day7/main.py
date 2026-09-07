@@ -92,26 +92,27 @@ def swap_currencies():
 def open_currency_picker(target_button):
     popup = ctk.CTkToplevel(app)
     popup.title("Select Currency")
-    popup.geometry("300x400")
+    popup.geometry("360x460")
     popup.configure(fg_color="#f0f0f0")
     popup.resizable(False, False)
 
-    popup_card = ctk.CTkFrame(popup, corner_radius=16, fg_color="white", border_width=1, border_color="#e5e5e5")
-    popup_card.pack(padx=15, pady=15, fill="both", expand=True)
+    popup_card = ctk.CTkFrame(popup, corner_radius=20, fg_color="white", border_width=1, border_color="#e5e5e5")
+    popup_card.pack(padx=20, pady=20, fill="both", expand=True)
 
     search_entry = ctk.CTkEntry(
         popup_card,
-        height=34,
-        corner_radius=10,
+        height=40,
+        corner_radius=12,
+        font=("Arial", 14),
         fg_color="#f7f7f7",
         border_width=1,
         border_color="#e0e0e0",
         placeholder_text="Search currency...",
     )
-    search_entry.pack(padx=15, pady=15, fill="x")
+    search_entry.pack(padx=20, pady=20, fill="x")
 
     list_frame = ctk.CTkScrollableFrame(popup_card, fg_color="transparent")
-    list_frame.pack(fill="both", expand=True, padx=15, pady=(0, 15))
+    list_frame.pack(fill="both", expand=True, padx=20, pady=(0, 20))
 
     # picks a currency, updates the target button, and closes the popup
     def select_currency(code):
@@ -145,43 +146,45 @@ def open_currency_picker(target_button):
 
 
 
-card = ctk.CTkFrame(app, corner_radius=16, fg_color="white", border_width=1, border_color="#e5e5e5")
-card.pack(padx=15, pady=15)
+card = ctk.CTkFrame(app, corner_radius=20, fg_color="white", border_width=1, border_color="#e5e5e5")
+card.pack(padx=20, pady=20)
 
-title_label = ctk.CTkLabel(card, text="Currency Converter", font=("Arial", 17, "bold"), text_color="black")
-title_label.pack(pady=(15, 10))
+title_label = ctk.CTkLabel(card, text="Currency Converter", font=("Arial", 22, "bold"), text_color="black")
+title_label.pack(pady=(22, 14))
 
-amount_label = ctk.CTkLabel(card, text="AMOUNT", font=("Arial", 10, "bold"), text_color="#999999")
-amount_label.pack(anchor="w", padx=15)
+amount_label = ctk.CTkLabel(card, text="AMOUNT", font=("Arial", 12, "bold"), text_color="#999999")
+amount_label.pack(anchor="w", padx=20)
 
 amount_entry = ctk.CTkEntry(
     card,
-    width=270,
-    height=34,
-    corner_radius=10,
+    width=340,
+    height=42,
+    corner_radius=12,
+    font=("Arial", 14),
     fg_color="#f7f7f7",
     border_width=1,
     border_color="#e0e0e0",
     placeholder_text="e.g. 100",
 )
-amount_entry.pack(padx=15, pady=(3, 10))
+amount_entry.pack(padx=20, pady=(5, 14))
 
 
 currency_row = ctk.CTkFrame(card, fg_color="transparent")
-currency_row.pack(padx=15, pady=(0, 10))
+currency_row.pack(padx=20, pady=(0, 14))
 
 from_column = ctk.CTkFrame(currency_row, fg_color="transparent")
 from_column.grid(row=0, column=0)
 
-from_label = ctk.CTkLabel(from_column, text="FROM", font=("Arial", 10, "bold"), text_color="#999999")
+from_label = ctk.CTkLabel(from_column, text="FROM", font=("Arial", 12, "bold"), text_color="#999999")
 from_label.pack(anchor="w")
 
 from_button = ctk.CTkButton(
     from_column,
     text="USD",
-    width=100,
-    height=32,
-    corner_radius=10,
+    width=130,
+    height=40,
+    corner_radius=12,
+    font=("Arial", 14, "bold"),
     fg_color="#f7f7f7",
     text_color="black",
     hover_color="#ececec",
@@ -189,33 +192,35 @@ from_button = ctk.CTkButton(
     border_color="#e0e0e0",
 )
 from_button.configure(command=lambda: open_currency_picker(from_button))
-from_button.pack(pady=(3, 0))
+from_button.pack(pady=(5, 0))
 
 swap_button = ctk.CTkButton(
     currency_row,
     text="⇄",
-    width=32,
-    height=32,
-    corner_radius=16,
+    width=40,
+    height=40,
+    corner_radius=20,
+    font=("Arial", 16, "bold"),
     fg_color="#e0e0e0",
     text_color="black",
     hover_color="#cfcfcf",
     command=swap_currencies,
 )
-swap_button.grid(row=0, column=1, padx=8, pady=(18, 0))
+swap_button.grid(row=0, column=1, padx=10, pady=(22, 0))
 
 to_column = ctk.CTkFrame(currency_row, fg_color="transparent")
 to_column.grid(row=0, column=2)
 
-to_label = ctk.CTkLabel(to_column, text="TO", font=("Arial", 10, "bold"), text_color="#999999")
+to_label = ctk.CTkLabel(to_column, text="TO", font=("Arial", 12, "bold"), text_color="#999999")
 to_label.pack(anchor="w")
 
 to_button = ctk.CTkButton(
     to_column,
     text="EUR",
-    width=100,
-    height=32,
-    corner_radius=10,
+    width=130,
+    height=40,
+    corner_radius=12,
+    font=("Arial", 14, "bold"),
     fg_color="#f7f7f7",
     text_color="black",
     hover_color="#ececec",
@@ -223,31 +228,31 @@ to_button = ctk.CTkButton(
     border_color="#e0e0e0",
 )
 to_button.configure(command=lambda: open_currency_picker(to_button))
-to_button.pack(pady=(3, 0))
+to_button.pack(pady=(5, 0))
 
 
 convert_button = ctk.CTkButton(
     card,
     text="Convert",
-    height=32,
-    corner_radius=16,
-    font=("Arial", 13, "bold"),
+    height=42,
+    corner_radius=18,
+    font=("Arial", 15, "bold"),
     fg_color="#2f5fdc",
     hover_color="#2549b0",
     command=convert_currency,
 )
-convert_button.pack(padx=15, pady=(0, 10), fill="x")
+convert_button.pack(padx=20, pady=(0, 14), fill="x")
 
 
-result_frame = ctk.CTkFrame(card, width=270, height=50, corner_radius=10, fg_color="#f7f7f7", border_width=1, border_color="#e0e0e0")
-result_frame.pack(padx=15, pady=(0, 5))
+result_frame = ctk.CTkFrame(card, width=340, height=64, corner_radius=12, fg_color="#f7f7f7", border_width=1, border_color="#e0e0e0")
+result_frame.pack(padx=20, pady=(0, 6))
 result_frame.pack_propagate(False)
 
-result_label = ctk.CTkLabel(result_frame, text="Your result will appear here", text_color="#999999", font=("Arial", 14, "bold"))
+result_label = ctk.CTkLabel(result_frame, text="Your result will appear here", text_color="#999999", font=("Arial", 16, "bold"))
 result_label.pack(expand=True)
 
-rate_label = ctk.CTkLabel(card, text="", font=("Arial", 10), text_color="#999999")
-rate_label.pack(pady=(0, 15))
+rate_label = ctk.CTkLabel(card, text="", font=("Arial", 12), text_color="#999999")
+rate_label.pack(pady=(0, 20))
 
 
 app.resizable(False, False)
